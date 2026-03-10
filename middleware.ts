@@ -1,6 +1,10 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-export default clerkMiddleware();
+const isPublicRoute = createRouteMatcher(["/api/webhooks/clerk(.*)"]);
+
+export default clerkMiddleware((auth, req) => {
+  // Webhook routes must remain unauthenticated so Clerk can POST to them
+});
 
 export const config = {
   matcher: [
